@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Registration Form</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(to right, #f2d8e2, #b0c1d4);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+      }
+
+      .container {
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        width: 100%;
+        padding: 20px;
+        box-sizing: border-box;
+      }
+
+      .registration-column {
+        flex: 1;
+        margin-right: 30px;
+      }
+
+      .registered-users-column {
+        flex: 1;
+        /* text-align: center; */
+      }
+
+      .registration-form {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin-bottom: 30px;
+        width: 300px;
+        margin: 0 auto;
+        animation: fadeIn 1s;
+      }
+
+      h1 {
+        color: #333;
+        margin-bottom: 30px;
+        text-align: center;
+      }
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px;
+      }
+
+      .form-group label {
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+
+      .form-group input,
+      .form-group select {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+
+      .button {
+        background-color: #4caf50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        margin-top: 20px;
+      }
+
+      .button:hover {
+        background-color: #45a049;
+      }
+
+      .registered-data {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: linear-gradient(to right, #f2d8e2, #b0c1d4);
+        padding: 20px;
+        margin-left: 140px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        color: #333;
+        width: 100%;
+        max-width: 300px;
+        max-height: 65vh;
+        overflow-y: auto;
+        margin-top: 85px;
+        animation: fadeIn 1s;
+        scrollbar-width: thin; /* Added scrollbar properties */
+        scrollbar-color: #888888 #dddddd;
+      }
+
+      .registered-data::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      .registered-data::-webkit-scrollbar-track {
+        background-color: #dddddd;
+      }
+
+      .registered-data::-webkit-scrollbar-thumb {
+        background-color: #888888;
+      }
+
+      .registered-user-even {
+        background-color: #f2d8e2;
+      }
+
+      .registered-user-odd {
+        background-color: #b0c1d4;
+      }
+
+      .registered-user {
+        margin-bottom: 20px;
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        color: #333;
+        width: 100%;
+        max-width: 300px;
+        animation: fadeIn 1s;
+      }
+
+      .registered-user p {
+        margin: 5px 0;
+      }
+
+      @keyframes fadeIn {
+        0% {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .fadeIn {
+        animation: fadeIn 1s;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="registration-column">
+        <h1>Registration Form</h1>
+        <div class="registration-form" id="registrationForm">
+          <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" id="name" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" required />
+          </div>
+          <div class="form-group">
+            <label for="gender">Gender:</label>
+            <select id="gender" required>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="dateOfBirth">Date of Birth:</label>
+            <input type="date" id="dateOfBirth" required />
+          </div>
+          <div class="form-group">
+            <label for="collegeName">College Name:</label>
+            <input type="text" id="collegeName" required />
+          </div>
+          <div class="form-group">
+            <label for="skills">Skills:</label>
+            <input type="text" id="skills" required />
+          </div>
+          <button class="button" id="registerButton">Register</button>
+        </div>
+      </div>
+      <div class="registered-users-column">
+        <div class="registered-data" id="registeredData"></div>
+      </div>
+    </div>
+
+    <script>
+      window.addEventListener("DOMContentLoaded", () => {
+        const registerButton = document.getElementById("registerButton");
+        registerButton.addEventListener("click", registerUser);
+      });
+
+      function registerUser() {
+        const name = document.getElementById("name").value;
+        const email = document.getElementById("email").value;
+        const gender = document.getElementById("gender").value;
+        const dateOfBirth = document.getElementById("dateOfBirth").value;
+        const collegeName = document.getElementById("collegeName").value;
+        const skills = document.getElementById("skills").value;
+
+        const registeredData = document.createElement("div");
+        registeredData.className = "registered-user";
+        const index = document.querySelectorAll(".registered-user").length;
+        registeredData.classList.add(
+          index % 2 === 0 ? "registered-user-even" : "registered-user-odd"
+        );
+        registeredData.innerHTML = `
+        <h2>Registered Data:</h2>
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Gender:</strong> ${gender}</p>
+        <p><strong>Date of Birth:</strong> ${dateOfBirth}</p>
+        <p><strong>College Name:</strong> ${collegeName}</p>
+        <p><strong>Skills:</strong> ${skills}</p>
+      `;
+
+        document.getElementById("registeredData").prepend(registeredData);
+        document.getElementById("registrationForm").reset();
+      }
+    </script>
+  </body>
+</html>
